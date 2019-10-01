@@ -1,10 +1,10 @@
 {% set name = "ldas-tools-diskcacheAPI-swig" %}
-{% set version = "2.6.6" %}
+{% set version = "2.6.8" %}
 
 # dependencies
-{% set ldas_tools_cmake_version = "1.0.4" %}
-{% set ldas_tools_diskcacheapi_version = "2.6.2" %}
-{% set ldas_tools_ldasgen_swig_version = "2.6.5" %}
+{% set ldas_tools_cmake_version = "1.0.8" %}
+{% set ldas_tools_diskcacheapi_version = "2.7.0" %}
+{% set ldas_tools_ldasgen_swig_version = "2.6.7" %}
 
 package:
   name: "{{ name|lower }}"
@@ -12,7 +12,7 @@ package:
 
 source:
   url: "http://software.ligo.org/lscsoft/source/{{ name }}-{{ version }}.tar.gz"
-  sha256: b5d2f444d1ef621d93253aa20ed29c4cb71531e34c6afaca4d1041f09cf83de2
+  sha256: 187c5cc3630e8fb0fb615212dddba5e6131aba44637529b15563153fcdfe3391
 
 build:
   number: 0
@@ -22,18 +22,17 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake >=3.6
-    - pkg-config  # [not win]
-    - make  # [not win]
-    - swig 3
+    - pkg-config  # [unix]
   host:
     - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
-    - ldas-tools-diskcacheapi >={{ ldas_tools_diskcacheapi_version }}
+    - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
+    - swig >=3.0.7,<4.0.0a0
   run:
     - ldas-tools-diskcacheapi >={{ ldas_tools_diskcacheapi_version }}
 
 test:
   commands:
-    - test -f ${PREFIX}/include/diskcacheAPI/diskCache.i  # [not win]
+    - test -f ${PREFIX}/include/diskcacheAPI/diskCache.i  # [unix]
 
 outputs:
   - name: ldas-tools-diskcacheapi-swig
@@ -44,19 +43,20 @@ outputs:
       build:
         - {{ compiler('cxx') }}
         - cmake >=3.6
-        - pkg-config  # [not win]
-        - make  # [not win]
-        - swig 3
+        - pkg-config  # [unix]
       host:
         - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
-        - ldas-tools-diskcacheapi >={{ ldas_tools_diskcacheapi_version }}
+        - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
         - {{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
         - python
+        - python-ldas-tools-ldasgen >={{ ldas_tools_ldasgen_swig_version }}
+        - swig >=3.0.7,<4.0.0a0
       run:
         - python
         - python-ldas-tools-al
         - ldas-tools-diskcacheapi >={{ ldas_tools_diskcacheapi_version }}
         - {{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
+        - python-ldas-tools-ldasgen >={{ ldas_tools_ldasgen_swig_version }}
     test:
       imports:
         - LDAStools.diskCache
