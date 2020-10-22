@@ -15,7 +15,7 @@ source:
   sha256: 187c5cc3630e8fb0fb615212dddba5e6131aba44637529b15563153fcdfe3391
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -24,7 +24,7 @@ requirements:
     - cmake >=3.6
     - pkg-config  # [unix]
   host:
-    - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
+    - ldas-tools-cmake >={{ ldas_tools_cmake_version }},<1.2.0
     - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
     - swig >=3.0.7,<4.0.0a0
   run:
@@ -45,7 +45,7 @@ outputs:
         - cmake >=3.6
         - pkg-config  # [unix]
       host:
-        - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
+        - ldas-tools-cmake >={{ ldas_tools_cmake_version }},<1.2.0
         - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
         - {{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
         - python
