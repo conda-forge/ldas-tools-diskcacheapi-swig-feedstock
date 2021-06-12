@@ -42,7 +42,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
-        - cmake >=3.6
+        - cmake >=3.20
         - pkg-config  # [unix]
       host:
         - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
