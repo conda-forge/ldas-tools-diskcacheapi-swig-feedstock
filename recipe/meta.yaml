@@ -2,7 +2,7 @@
 {% set version = "2.6.9" %}
 
 # dependencies
-{% set ldas_tools_cmake_version = "1.0.8" %}
+{% set ldas_tools_cmake_version = "1.2.0" %}
 {% set ldas_tools_diskcacheapi_version = "2.7.0" %}
 {% set ldas_tools_ldasgen_swig_version = "2.6.7" %}
 
@@ -24,7 +24,7 @@ requirements:
     - cmake >=3.6
     - pkg-config  # [unix]
   host:
-    - ldas-tools-cmake >={{ ldas_tools_cmake_version }},<1.2.0
+    - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
     - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
     - swig >=3.0.7,<4.0.0a0
   run:
@@ -45,7 +45,7 @@ outputs:
         - cmake >=3.6
         - pkg-config  # [unix]
       host:
-        - ldas-tools-cmake >={{ ldas_tools_cmake_version }},<1.2.0
+        - ldas-tools-cmake >={{ ldas_tools_cmake_version }}
         - ldas-tools-diskcacheapi {{ ldas_tools_diskcacheapi_version }}
         - {{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
         - python
