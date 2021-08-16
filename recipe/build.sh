@@ -1,21 +1,23 @@
 #!/bin/bash
 set -e
 
-mkdir -p build
-pushd build
+mkdir -p _build
+pushd _build
 
 # configure
-cmake .. \
-	-DCMAKE_INSTALL_PREFIX=${PREFIX} \
+cmake \
+	${SRC_DIR} \
+	${CMAKE_ARGS} \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DENABLE_SWIG_PYTHON2=no \
-	-DENABLE_SWIG_PYTHON3=no
+	-DENABLE_SWIG_PYTHON3=no \
+;
 
 # build
-cmake --build . -- -j ${CPU_COUNT}
+cmake --build . --parallel ${CPU_COUNT} --verbose
 
 # check
-ctest -VV
+ctest --parallel ${CPU_COUNT} --verbose
 
 # install
-cmake --build . --target install
+cmake --build . --parallel ${CPU_COUNT} --verbose --target install
