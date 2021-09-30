@@ -1,5 +1,5 @@
 {% set name = "ldas-tools-diskcacheAPI-swig" %}
-{% set version = "2.6.9" %}
+{% set version = "2.6.10" %}
 
 # dependencies
 {% set ldas_tools_cmake_version = "1.2.0" %}
@@ -12,7 +12,7 @@ package:
 
 source:
   url: http://software.ligo.org/lscsoft/source/{{ name }}-{{ version }}.tar.gz
-  sha256: 76c29907860d7db6fb4e95611a4b49c34dd4501837a95c20b62773e50c8e0fc9
+  sha256: 1dd9bdde71cd76a7eda19ef17e14849fa5d7a6a9e30ebafcab74810b86693183
 
 build:
   number: 0
