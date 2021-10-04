@@ -8,9 +8,9 @@ pushd _build
 cmake \
 	${SRC_DIR} \
 	${CMAKE_ARGS} \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DENABLE_SWIG_PYTHON2=no \
-	-DENABLE_SWIG_PYTHON3=no \
+	-DCMAKE_BUILD_TYPE:STRING=Release \
+	-DENABLE_SWIG_PYTHON2:BOOL=no \
+	-DENABLE_SWIG_PYTHON3:BOOL=no \
 ;
 
 # build
