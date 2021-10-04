@@ -18,7 +18,9 @@ cmake \
 cmake --build python --parallel ${CPU_COUNT} --verbose
 
 # check
-ctest --test-dir python --parallel ${CPU_COUNT} --verbose
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
+	ctest --test-dir python --parallel ${CPU_COUNT} --verbose
+fi
 
 # install
 cmake --build python --parallel ${CPU_COUNT} --verbose --target install
