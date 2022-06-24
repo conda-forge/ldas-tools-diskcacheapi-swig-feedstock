@@ -39,7 +39,7 @@ outputs:
   - name: ldas-tools-diskcacheapi-swig
 
   - name: python-ldas-tools-diskcacheapi
-    script: install-python.sh
+    script: build-python.sh
     requirements:
       build:
         - {{ compiler('cxx') }}
