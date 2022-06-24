@@ -1,10 +1,10 @@
 {% set name = "ldas-tools-diskcacheAPI-swig" %}
-{% set version = "2.6.10" %}
+{% set version = "2.6.11" %}
 
 # dependencies
 {% set ldas_tools_cmake_version = "1.2.3" %}
 {% set ldas_tools_diskcacheapi_version = "2.7.2" %}
-{% set ldas_tools_ldasgen_swig_version = "2.6.9" %}
+{% set ldas_tools_ldasgen_swig_version = "2.6.10" %}
 
 package:
   name: {{ name|lower }}
@@ -12,10 +12,10 @@ package:
 
 source:
   url: http://software.ligo.org/lscsoft/source/{{ name }}-{{ version }}.tar.gz
-  sha256: 1dd9bdde71cd76a7eda19ef17e14849fa5d7a6a9e30ebafcab74810b86693183
+  sha256: 6be9c1c500d23cf4a25281c6f56f2de1ebf273bd7845b2333750bbbb75b1f81a
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -39,7 +39,7 @@ outputs:
   - name: ldas-tools-diskcacheapi-swig
 
   - name: python-ldas-tools-diskcacheapi
-    script: install-python.sh
+    script: build-python.sh
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -62,7 +62,8 @@ outputs:
         - LDAStools.diskCache
     about:
       home: https://wiki.ligo.org/Computing/LDASTools
-      dev_url: https://git.ligo.org/ldastools/LDAS_Tools
+      dev_url: https://git.ligo.org/ldastools/LDAS_Tools.git
+      doc_url: https://computing.docs.ligo.org/ldastools/LDAS_Tools/ldas-tools-diskcacheAPI/
       license: GPL-3.0-or-later
       license_family: GPL
       license_file: COPYING
@@ -70,7 +71,8 @@ outputs:
 
 about:
   home: https://wiki.ligo.org/Computing/LDASTools
-  dev_url: https://git.ligo.org/ldastools/LDAS_Tools
+  dev_url: https://git.ligo.org/ldastools/LDAS_Tools.git
+  doc_url: https://computing.docs.ligo.org/ldastools/LDAS_Tools/ldas-tools-diskcacheAPI/
   license: GPL-3.0-or-later
   license_family: GPL
   license_file: COPYING
