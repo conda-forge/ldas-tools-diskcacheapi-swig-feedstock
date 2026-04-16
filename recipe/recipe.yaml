@@ -1,0 +1,88 @@
+schema_version: 1
+
+context:
+  name: ldas-tools-diskcacheAPI-swig
+  version: 2.6.13
+  ldas_tools_cmake_version: 1.3.1
+  ldas_tools_diskcacheapi_version: 2.7.8
+  ldas_tools_ldasgen_version: 2.7.4
+  ldas_tools_ldasgen_swig_version: 2.6.11
+
+recipe:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: http://software.ligo.org/lscsoft/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 0aea8d3c277d4433f96b786667a55ce33239baead4a94358f428f5dcceb93928
+
+build:
+  number: 0
+  skip: win
+
+outputs:
+  - package:
+      name: ldas-tools-diskcacheapi-swig
+    build:
+      script: build
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib('c') }}
+        - cmake >=3.6
+        - make
+        - pkg-config
+        - swig >=3.0.7
+      host:
+        - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
+        - ldas-tools-ldasgen ${{ ldas_tools_ldasgen_version }}.*
+        - ldas-tools-diskcacheapi ${{ ldas_tools_diskcacheapi_version }}.*
+    tests:
+      - package_contents:
+          include:
+            - diskcacheAPI/diskCache.i
+
+  - package:
+      name: python-ldas-tools-diskcacheapi
+    build:
+      script: build-python
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
+        - cmake >=3.20
+        - make
+        - pkg-config
+        - swig >=3.0.7
+      host:
+        - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
+        - ${{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
+        - python
+      run:
+        - python
+        - python-ldas-tools-al
+        - python-ldas-tools-ldasgen >=${{ ldas_tools_ldasgen_swig_version }}
+    tests:
+      - python:
+          imports:
+            - LDAStools.diskCache
+    about:
+      license: GPL-3.0-or-later
+      license_file: COPYING
+      summary: Python bindings for the LDAS Tools disk cache library
+      homepage: https://wiki.ligo.org/Computing/LDASTools
+      repository: https://git.ligo.org/ldastools/LDAS_Tools.git
+      documentation: https://computing.docs.ligo.org/ldastools/LDAS_Tools/ldas-tools-diskcacheAPI/
+
+about:
+  summary: SWIG interface for the LDAS Tools disk cache library
+  homepage: https://wiki.ligo.org/Computing/LDASTools
+  repository: https://git.ligo.org/ldastools/LDAS_Tools.git
+  documentation: https://computing.docs.ligo.org/ldastools/LDAS_Tools/ldas-tools-diskcacheAPI/
+  license: GPL-3.0-or-later
+  license_file: COPYING
+
+extra:
+  recipe-maintainers:
+    - duncanmmacleod
+    - emaros
