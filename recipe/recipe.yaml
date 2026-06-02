@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: ldas-tools-diskcacheAPI-swig
-  version: 2.6.14
+  version: "2.6.15"
   ldas_tools_cmake_version: 1.3.1
   ldas_tools_diskcacheapi_version: 2.7.8
   ldas_tools_ldasgen_version: 2.7.4
@@ -14,7 +14,7 @@ recipe:
 
 source:
   url: http://software.ligo.org/lscsoft/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 508cf7e21f745a8158148fce413fea2cb34142b502903af9c9509fb5a67fbb00
+  sha256: 0aed953de8d34b1e3acea3bde4c45ab83e313c6aa18719fb883dfef337caa08f
 
 build:
   number: 0
