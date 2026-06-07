@@ -6,7 +6,7 @@ context:
   ldas_tools_cmake_version: 1.3.1
   ldas_tools_diskcacheapi_version: 2.7.8
   ldas_tools_ldasgen_version: 2.7.4
-  ldas_tools_ldasgen_swig_version: 2.6.11
+  ldas_tools_ldasgen_swig_version: 2.6.12
 
 recipe:
   name: ${{ name|lower }}
@@ -35,8 +35,8 @@ outputs:
         - swig >=3.0.7
       host:
         - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
-        - ldas-tools-ldasgen ${{ ldas_tools_ldasgen_version }}.*
-        - ldas-tools-diskcacheapi ${{ ldas_tools_diskcacheapi_version }}.*
+        - ldas-tools-ldasgen >=${{ ldas_tools_ldasgen_version }}
+        - ldas-tools-diskcacheapi >=${{ ldas_tools_diskcacheapi_version }}
     tests:
       - package_contents:
           include:
@@ -54,6 +54,14 @@ outputs:
         - make
         - pkg-config
         - swig >=3.0.7
+        # cross-compile helpers: give the build host a runnable python that
+        # reports target-platform metadata so find_package(PythonInterp)
+        # succeeds (avoids 'Cannot run the interpreter $PREFIX/bin/python').
+        # See https://git.ligo.org/computing/ldastools/igwn-cmake/-/issues/46
+        - if: build_platform != target_platform
+          then:
+            - cross-python_${{ target_platform }}
+            - python
       host:
         - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
         - ${{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
