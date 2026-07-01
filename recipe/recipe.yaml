@@ -45,26 +45,24 @@ outputs:
   - package:
       name: python-ldas-tools-diskcacheapi
     build:
+      dynamic_linking:
+        overdepending_behavior: error
       script: build-python
     requirements:
       build:
-        - ${{ compiler('cxx') }}
+        - ${{ compiler("cxx") }}
         - ${{ stdlib("c") }}
         - cmake >=3.12,<4.0.0a0
         - make
         - pkg-config
         - swig >=3.0.7
-        # cross-compile helpers: give the build host a runnable python that
-        # reports target-platform metadata so find_package(PythonInterp)
-        # succeeds (avoids 'Cannot run the interpreter $PREFIX/bin/python').
-        # See https://git.ligo.org/computing/ldastools/igwn-cmake/-/issues/46
         - if: build_platform != target_platform
           then:
             - cross-python_${{ target_platform }}
             - python
       host:
-        - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
         - ${{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
+        - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
         - python
       run:
         - python
@@ -75,12 +73,7 @@ outputs:
           imports:
             - LDAStools.diskCache
     about:
-      license: GPL-3.0-or-later
-      license_file: COPYING
       summary: Python bindings for the LDAS Tools disk cache library
-      homepage: https://wiki.ligo.org/Computing/LDASTools
-      repository: https://git.ligo.org/ldastools/LDAS_Tools.git
-      documentation: https://computing.docs.ligo.org/ldastools/LDAS_Tools/ldas-tools-diskcacheAPI/
 
 about:
   summary: SWIG interface for the LDAS Tools disk cache library
