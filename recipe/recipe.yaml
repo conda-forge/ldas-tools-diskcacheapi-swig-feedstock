@@ -63,6 +63,7 @@ outputs:
       host:
         - ${{ pin_subpackage('ldas-tools-diskcacheapi-swig', exact=True) }}
         - ldas-tools-cmake >=${{ ldas_tools_cmake_version }}
+        - libpython
         - python
       run:
         - python
