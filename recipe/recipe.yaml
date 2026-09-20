@@ -69,6 +69,9 @@ outputs:
         - python
         - python-ldas-tools-al
         - python-ldas-tools-ldasgen >=${{ ldas_tools_ldasgen_swig_version }}
+      ignore_run_exports:
+        by_name:
+          - libpython
     tests:
       - python:
           imports:
