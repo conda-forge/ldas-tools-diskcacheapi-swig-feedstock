@@ -48,6 +48,9 @@ outputs:
       dynamic_linking:
         overdepending_behavior: error
       script: build-python
+      skip: python_impl != 'cpython'
+      files:
+        - lib/python*/site-packages/LDAStools/
     requirements:
       build:
         - ${{ compiler("cxx") }}
